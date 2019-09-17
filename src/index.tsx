@@ -1,8 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import RootNavigatorContainer from './navigation/root.navigator';
 import { store } from './store';
+import { theme } from './styles';
 
 export class App extends React.Component {
   render() {
@@ -19,7 +20,7 @@ export class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.secondary,
     alignItems: 'center',
     justifyContent: 'center',
   },
