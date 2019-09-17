@@ -9,7 +9,7 @@ export class App extends React.Component {
     return (
       <View>
         <Text>
-          App
+          App container, interval
         </Text>
       </View>
       );
