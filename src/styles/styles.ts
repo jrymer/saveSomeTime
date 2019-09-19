@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { theme } from './theme';
 
 export const button = StyleSheet.create({
@@ -17,4 +18,4 @@ export const text = StyleSheet.create({
   warningText: {
     color: theme.warning
   }
-})
+});

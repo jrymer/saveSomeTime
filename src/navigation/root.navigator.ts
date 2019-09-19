@@ -1,4 +1,5 @@
 import * as navigation from 'react-navigation';
+
 import HomeView from '../views/HomeView';
 
 const RootNavigator: any = navigation.createSwitchNavigator(

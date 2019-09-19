@@ -1,6 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { stopwatchReducer, initialStopwatchState } from './stopwatchState/stopwatch.reducer';
+
+import { initialStopwatchState, stopwatchReducer } from './stopwatchState/stopwatch.reducer';
 
 const rootReducer = combineReducers({
   stopwatchState: stopwatchReducer

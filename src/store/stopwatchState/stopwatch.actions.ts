@@ -1,4 +1,4 @@
-import { StopwatchTypes, TOGGLE_STOPWATCH, SET_STOPWATCH_TIME } from './stopwatch.types';
+import { SET_STOPWATCH_TIME, StopwatchTypes, TOGGLE_STOPWATCH } from './stopwatch.types';
 
 export const toggleStopwatchRunning = (): StopwatchTypes  => ({
   type: TOGGLE_STOPWATCH
@@ -6,7 +6,7 @@ export const toggleStopwatchRunning = (): StopwatchTypes  => ({
 
 export const setStopwatchTime = (time: number): StopwatchTypes => {
   return {
-    type: SET_STOPWATCH_TIME,
-    payload: time
-  }
+    payload: time,
+    type: SET_STOPWATCH_TIME
+  };
 };

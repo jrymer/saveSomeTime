@@ -1,12 +1,13 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
+import { Provider } from 'react-redux';
+
 import RootNavigatorContainer from './navigation/root.navigator';
 import { store } from './store';
 import { theme } from './styles';
 
 export class App extends React.Component {
-  render() {
+  public render() {
     return (
       <Provider store={store}>
         <View style={styles.container}>
@@ -14,7 +15,7 @@ export class App extends React.Component {
         </View>
       </Provider>
     );
-  };
+  }
 }
 
 const styles = StyleSheet.create({
