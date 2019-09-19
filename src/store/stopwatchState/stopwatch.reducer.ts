@@ -1,4 +1,4 @@
-import { IStopwatchState, IAction } from '../../models/saveSomeTime';
+import { IAction, IStopwatchState } from '../../models/saveSomeTime';
 import * as stopwatchTypes from './stopwatch.types';
 
 export const initialStopwatchState: IStopwatchState = {

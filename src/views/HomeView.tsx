@@ -1,15 +1,20 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import StopWatchButtonContainer from '../components/StopWatchButtonContainer';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { ISaveSomeTimeState, IAppProps } from '../models/saveSomeTime';
 
-class HomeView extends React.Component<IAppProps> {
-  constructor(props: IAppProps) {
+import StopWatchButtonContainer from '../components/StopWatchButtonContainer';
+import { ISaveSomeTimeState, IStopwatchState } from '../models/saveSomeTime';
+
+interface IProps {
+  stopwatchState: IStopwatchState;
+}
+
+class HomeView extends React.Component<IProps> {
+  constructor(props: IProps) {
     super(props);
   }
 
-  render() {
+  public render() {
     return (
       <View>
         <Text>Home View</Text>
@@ -17,7 +22,7 @@ class HomeView extends React.Component<IAppProps> {
         <Text>{ this.props.stopwatchState.stopwatchTime }</Text>
         <StopWatchButtonContainer></StopWatchButtonContainer>
       </View>
-    )
+    );
   }
 }
 

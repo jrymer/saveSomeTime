@@ -1,4 +1,4 @@
-import { toggleStopwatchRunning, setStopwatchTime } from "../store/stopwatchState/stopwatch.actions";
+import { setStopwatchTime, toggleStopwatchRunning } from '../store/stopwatchState/stopwatch.actions';
 
 export interface IAction {
   type: string;
@@ -11,8 +11,8 @@ export interface IStopwatchState {
 }
 
 export interface IAppProps {
-  toggleStopwatchRunning: typeof toggleStopwatchRunning,
-  setStopwatchTime: typeof setStopwatchTime,
+  toggleStopwatchRunning: typeof toggleStopwatchRunning;
+  setStopwatchTime: typeof setStopwatchTime;
   stopwatchState: IStopwatchState;
 }
 
