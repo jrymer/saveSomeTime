@@ -25,6 +25,7 @@ jobs:
       run: |
         npm install
         npm run test
+        ls
         npm run lint
       env:
         CI: true
