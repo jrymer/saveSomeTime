@@ -7,7 +7,10 @@ export const button = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20
+    borderRadius: 20,
+    marginTop: 10,
+    width: 320,
+    height: 40
   }
 });
 

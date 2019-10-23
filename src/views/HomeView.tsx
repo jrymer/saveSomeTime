@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import StopWatchButtonContainer from '../components/StopWatchButtonContainer';
@@ -17,9 +17,6 @@ class HomeView extends React.Component<IProps> {
   public render() {
     return (
       <View>
-        <Text>Home View</Text>
-        <Text>{ this.props.stopwatchState.stopwatchRunning }</Text>
-        <Text>{ this.props.stopwatchState.stopwatchTime }</Text>
         <StopWatchButtonContainer></StopWatchButtonContainer>
       </View>
     );
