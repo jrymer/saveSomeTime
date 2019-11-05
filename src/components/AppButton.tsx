@@ -1,31 +1,52 @@
 import React from 'react';
 import { Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
-type Props = {
-  buttonStyles: ViewStyle,
-  textStyles: TextStyle,
-  onPress?: any,
-  label: string,
-  disabled?: boolean
-} & Partial<DefaultProps>;
+import { button, text } from '../styles';
 
-type DefaultProps = Readonly<typeof defaultProps>;
-const defaultProps = {
-  disabled: false,
-  onPress: () => true
+interface IProps {
+  label: string;
+  buttonStyles?: ViewStyle;
+  textStyles?: TextStyle;
+  onPress?: () => void;
+  disabled?: boolean;
+}
+
+const defaultProps: Partial<IProps> = {
+  disabled: false
 };
 
-export class AppButton extends React.Component<Props> {
+export class AppButton extends React.Component<IProps> {
   private static defaultProps = defaultProps;
 
-  constructor(props: Props) {
+  constructor(props: IProps) {
     super(props);
   }
 
   public render() {
+    const {
+      buttonStyles,
+      textStyles,
+      label,
+      onPress,
+      disabled
+    } = this.props;
+
+    const mergedButtonStyles = {
+      ...button.roundButton,
+      ...buttonStyles
+    };
+    const mergedTextStyles = {
+      ...text.whiteText,
+      ...textStyles
+    };
+
     return (
-      <TouchableOpacity style={this.props.buttonStyles} onPress={this.props.onPress} disabled={this.props.disabled}>
-        <Text style={this.props.textStyles}>{this.props.label}</Text>
+      <TouchableOpacity
+        style={mergedButtonStyles}
+        onPress={onPress}
+        disabled={disabled}
+      >
+        <Text style={mergedTextStyles}>{label}</Text>
       </TouchableOpacity>
     );
   }

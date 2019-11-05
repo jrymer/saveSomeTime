@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import { ISaveSomeTimeState, IStopwatchState } from '../models/saveSomeTime';
 import { setStopwatchTime } from '../store/stopwatchState/stopwatch.actions';
-import { button, text, theme } from '../styles';
+import { text, theme } from '../styles';
+import { getDisplayValue } from '../utils/timerUtils';
 import { AppButton } from './AppButton';
 
 interface IStopWatchtimerButtonsContainerState {
@@ -16,6 +18,7 @@ interface IStopWatchtimerButtonsContainerState {
 interface IStopWatchtimerButtonsContainerProps {
   stopwatchState: IStopwatchState;
   setStopwatchTime: typeof setStopwatchTime;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 class StopWatchtimerButtonsContainer extends React.Component
@@ -40,7 +43,7 @@ class StopWatchtimerButtonsContainer extends React.Component
     return (
       <View style={styles.componentContainer}>
         <Text style={styles.timer}>
-          {this.getDisplayValue(this.state.milliseconds)}
+          {getDisplayValue(this.state.milliseconds)}
         </Text>
         <View style={styles.timerButtonsContainer}>
           <AppButton buttonStyles={styles.resetButton} textStyles={text.whiteText} onPress={this.resetStopwatch} label='Reset'></AppButton>
@@ -91,52 +94,29 @@ class StopWatchtimerButtonsContainer extends React.Component
     clearInterval(this.interval);
   }
 
-  private getDisplayValue = (milliseconds: number) => {
-    let seconds = milliseconds / 1000;
-    const hours = seconds / 3600; // 3,600 seconds in 1 hour
-    seconds = seconds % 3600; // seconds remaining after extracting hours
-    const minutes = seconds / 60; // 60 seconds in 1 minute
-    seconds = seconds % 60;
-
-    const secondsString = this.getLeadingZero(seconds);
-    const minutesString = this.getLeadingZero(minutes);
-    const hoursString = this.getLeadingZero(hours);
-    const timeString = `${hoursString}:${minutesString}:${secondsString}`;
-    return timeString;
-  }
-
-  private getLeadingZero = (value: number): string => {
-    const time = Math.floor(value);
-
-    return time < 10
-      ? `0${time}`
-      : time.toString();
-  }
-
   private save = () => {
     this.props.setStopwatchTime(this.state.milliseconds);
+    this.props.navigation.navigate('SaveTime');
   }
 
   private getSaveButton = () => {
     return (!this.state.isStopwatchRunning && this.state.milliseconds > 0)
       ? <AppButton
           buttonStyles={styles.saveEnabled}
-          textStyles={text.whiteText}
           onPress={this.save}
           label='Save'>
         </AppButton>
       : <AppButton
           buttonStyles={styles.saveDisabled}
-          textStyles={text.whiteText}
           label='Save'
-          disabled={true}>
+          disabled>
         </AppButton>;
   }
 
   private getStopwatchButton = () => {
     return !this.state.isStopwatchRunning
-      ? <AppButton buttonStyles={styles.startButton} textStyles={text.whiteText} onPress={this.startStopwatch} label='Start'></AppButton>
-      : <AppButton buttonStyles={styles.stopButton} textStyles={text.whiteText} onPress={this.stopStopwatch} label='Stop'></AppButton>;
+      ? <AppButton buttonStyles={styles.startButton} onPress={this.startStopwatch} label='Start'></AppButton>
+      : <AppButton buttonStyles={styles.stopButton} onPress={this.stopStopwatch} label='Stop'></AppButton>;
   }
 }
 
@@ -146,41 +126,27 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   startButton: {
-    ...button.roundButton,
-    backgroundColor: theme.primary,
-    width: 100,
-    height: 40
+    width: 150,
+    backgroundColor: theme.primary
   },
   stopButton: {
-    ...button.roundButton,
-    backgroundColor: theme.accent,
-    width: 100,
-    height: 40
+    width: 150,
+    backgroundColor: theme.accent
   },
   resetButton: {
-    ...button.roundButton,
-    backgroundColor: theme.warning,
-    width: 100,
-    height: 40
+    width: 150,
+    backgroundColor: theme.warning
   },
   saveDisabled: {
-    ...button.roundButton,
-    backgroundColor: theme.darkLighter,
-    width: 210,
-    height: 40,
-    marginTop: 10
+    backgroundColor: theme.disabled
   },
   saveEnabled: {
-    ...button.roundButton,
-    backgroundColor: theme.dark,
-    width: 210,
-    height: 40,
-    marginTop: 10
+    backgroundColor: theme.dark
   },
   timerButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 210
+    width: 320
   },
   timer: {
     fontSize: 60,
@@ -195,4 +161,4 @@ const mapStateToProps = (state: ISaveSomeTimeState) => {
 
 const mapDispatchToProps = { setStopwatchTime };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StopWatchtimerButtonsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(StopWatchtimerButtonsContainer));

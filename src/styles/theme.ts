@@ -5,6 +5,6 @@ export const theme = {
   accent: '#ebaca2',
   warning: '#ce6a6b',
   dark: '#212e53',
-  darkLighter: '#9096A9',
+  disabled: '#9096A9',
   font: '#FFF'
 };
