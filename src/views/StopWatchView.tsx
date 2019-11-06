@@ -1,31 +1,32 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationScreenProp, withNavigation } from 'react-navigation';
+import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import { AppButton } from '../components/AppButton';
 import { ISaveSomeTimeState, IStopwatchState } from '../models/saveSomeTime';
 import { setStopwatchTime } from '../store/stopwatchState/stopwatch.actions';
-import { text, theme } from '../styles';
+import { appStyles, text, theme } from '../styles';
 import { getDisplayValue } from '../utils/timerUtils';
-import { AppButton } from './AppButton';
 
-interface IStopWatchtimerButtonsContainerState {
+interface IStopWatchViewState {
   milliseconds: number;
   startTime: number;
   isStopwatchRunning: boolean;
 }
 
-interface IStopWatchtimerButtonsContainerProps {
+interface IStopWatchViewProps {
   stopwatchState: IStopwatchState;
   setStopwatchTime: typeof setStopwatchTime;
   navigation: NavigationScreenProp<any, any>;
 }
 
-class StopWatchtimerButtonsContainer extends React.Component
-  <IStopWatchtimerButtonsContainerProps, IStopWatchtimerButtonsContainerState> {
+class StopWatchView extends React.Component
+  <IStopWatchViewProps, IStopWatchViewState> {
+
   private interval = 0;
 
-  constructor(props: IStopWatchtimerButtonsContainerProps) {
+  constructor(props: IStopWatchViewProps) {
     super(props);
 
     this.state = {
@@ -40,13 +41,23 @@ class StopWatchtimerButtonsContainer extends React.Component
   }
 
   public render() {
+    const mergedStyles = {
+      ...appStyles.appContainer,
+      ...appStyles.appFlexColumnContainer
+    };
+
     return (
-      <View style={styles.componentContainer}>
+      <View style={mergedStyles}>
         <Text style={styles.timer}>
           {getDisplayValue(this.state.milliseconds)}
         </Text>
         <View style={styles.timerButtonsContainer}>
-          <AppButton buttonStyles={styles.resetButton} textStyles={text.whiteText} onPress={this.resetStopwatch} label='Reset'></AppButton>
+          <AppButton
+            buttonStyles={styles.resetButton}
+            textStyles={text.primaryText}
+            onPress={this.resetStopwatch}
+            label='Reset'>
+          </AppButton>
           {this.getStopwatchButton()}
         </View>
         {this.getSaveButton()}
@@ -56,7 +67,7 @@ class StopWatchtimerButtonsContainer extends React.Component
 
   private tick = () => {
     const difference = new Date().getTime() - this.state.startTime;
-    this.setState((prevState: IStopWatchtimerButtonsContainerState) => ({ ...prevState, milliseconds: difference }));
+    this.setState((prevState: IStopWatchViewState) => ({ ...prevState, milliseconds: difference }));
   }
 
   private startStopwatch = () => {
@@ -66,7 +77,7 @@ class StopWatchtimerButtonsContainer extends React.Component
       startTime = new Date().getTime();
     }
 
-    this.setState((prevState: IStopWatchtimerButtonsContainerState) => (
+    this.setState((prevState: IStopWatchViewState) => (
       {
         ...prevState,
         isStopwatchRunning: true,
@@ -79,7 +90,7 @@ class StopWatchtimerButtonsContainer extends React.Component
   }
 
   private stopStopwatch = () => {
-    this.setState((prevState: IStopWatchtimerButtonsContainerState) => (
+    this.setState((prevState: IStopWatchViewState) => (
       {
         ...prevState,
         isStopwatchRunning: !prevState.isStopwatchRunning
@@ -88,7 +99,7 @@ class StopWatchtimerButtonsContainer extends React.Component
   }
 
   private resetStopwatch = () => {
-    this.setState((prevState: IStopWatchtimerButtonsContainerState) => (
+    this.setState((prevState: IStopWatchViewState) => (
       { ...prevState, isStopwatchRunning: false, milliseconds: 0, startTime: 0 }
     ));
     clearInterval(this.interval);
@@ -102,15 +113,15 @@ class StopWatchtimerButtonsContainer extends React.Component
   private getSaveButton = () => {
     return (!this.state.isStopwatchRunning && this.state.milliseconds > 0)
       ? <AppButton
-          buttonStyles={styles.saveEnabled}
-          onPress={this.save}
-          label='Save'>
-        </AppButton>
+        buttonStyles={styles.saveEnabled}
+        onPress={this.save}
+        label='Save'>
+      </AppButton>
       : <AppButton
-          buttonStyles={styles.saveDisabled}
-          label='Save'
-          disabled>
-        </AppButton>;
+        buttonStyles={styles.saveDisabled}
+        label='Save'
+        disabled>
+      </AppButton>;
   }
 
   private getStopwatchButton = () => {
@@ -121,10 +132,6 @@ class StopWatchtimerButtonsContainer extends React.Component
 }
 
 const styles = StyleSheet.create({
-  componentContainer: {
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
   startButton: {
     width: 150,
     backgroundColor: theme.primary
@@ -161,4 +168,4 @@ const mapStateToProps = (state: ISaveSomeTimeState) => {
 
 const mapDispatchToProps = { setStopwatchTime };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(StopWatchtimerButtonsContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(StopWatchView);

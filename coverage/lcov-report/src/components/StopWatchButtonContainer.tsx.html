@@ -487,7 +487,7 @@ class StopWatchtimerButtonsContainer extends React.Component
           {this.getDisplayValue(this.state.milliseconds)}
         &lt;/Text&gt;
         &lt;View style={styles.timerButtonsContainer}&gt;
-          &lt;AppButton buttonStyles={styles.resetButton} textStyles={text.whiteText} onPress={this.resetStopwatch} label='Reset'&gt;&lt;/AppButton&gt;
+          &lt;AppButton buttonStyles={styles.resetButton} textStyles={text.primaryText} onPress={this.resetStopwatch} label='Reset'&gt;&lt;/AppButton&gt;
           {this.getStopwatchButton()}
         &lt;/View&gt;
         {this.getSaveButton()}
@@ -565,13 +565,13 @@ class StopWatchtimerButtonsContainer extends React.Component
     return (!this.state.isStopwatchRunning &amp;&amp; this.state.milliseconds &gt; 0)
       ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;AppButton</span>
           buttonStyles={styles.saveEnabled}
-          textStyles={text.whiteText}
+          textStyles={text.primaryText}
           onPress={this.save}
           label='Save'&gt;
         &lt;/AppButton&gt;
       : &lt;AppButton
           buttonStyles={styles.saveDisabled}
-          textStyles={text.whiteText}
+          textStyles={text.primaryText}
           label='Save'
           disabled={true}&gt;
         &lt;/AppButton&gt;;
@@ -579,8 +579,8 @@ class StopWatchtimerButtonsContainer extends React.Component
 &nbsp;
   private getStopwatchButton = () =&gt; {
     return !this.state.isStopwatchRunning
-      ? &lt;AppButton buttonStyles={styles.startButton} textStyles={text.whiteText} onPress={this.startStopwatch} label='Start'&gt;&lt;/AppButton&gt;
-      : <span class="branch-1 cbranch-no" title="branch not covered" >&lt;AppButton buttonStyles={styles.stopButton} textStyles={text.whiteText} onPress={this.stopStopwatch} label='Stop'&gt;&lt;/AppButton&gt;;</span>
+      ? &lt;AppButton buttonStyles={styles.startButton} textStyles={text.primaryText} onPress={this.startStopwatch} label='Start'&gt;&lt;/AppButton&gt;
+      : <span class="branch-1 cbranch-no" title="branch not covered" >&lt;AppButton buttonStyles={styles.stopButton} textStyles={text.primaryText} onPress={this.stopStopwatch} label='Stop'&gt;&lt;/AppButton&gt;;</span>
   }
 }
 &nbsp;

@@ -36,7 +36,7 @@ export class AppButton extends React.Component<IProps> {
       ...buttonStyles
     };
     const mergedTextStyles = {
-      ...text.whiteText,
+      ...text.primaryText,
       ...textStyles
     };
 

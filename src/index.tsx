@@ -1,28 +1,25 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBars, faBusinessTime, faSave, faStopwatch } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 
-import RootNavigatorContainer from './navigation/root.navigator';
+import DrawerNavigator from './navigation/drawer.navigator';
 import { store } from './store';
-import { theme } from './styles';
+
+// import { faWatchFitness } from '@fortawesome/pro-regular-svg-icons';
+library.add(
+  faBars,
+  faSave,
+  faBusinessTime,
+  faStopwatch
+);
 
 export class App extends React.Component {
   public render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <RootNavigatorContainer />
-        </View>
+          <DrawerNavigator />
       </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.secondary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
