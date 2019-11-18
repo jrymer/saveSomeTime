@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { AppButton } from '../components/AppButton';
 import { AppTextInput } from '../components/AppTextInput';
 import { ISaveSomeTimeState, IStopwatchState } from '../models/saveSomeTime';
-import { theme } from '../styles';
+import { appStyles, theme } from '../styles';
 import { getDisplayValue } from '../utils/timerUtils';
 
 interface IProps {
@@ -37,8 +37,13 @@ class SaveTimeView extends React.Component<IProps, IState> {
   }
 
   public render() {
+    const mergedStyles = {
+      ...appStyles.appContainer,
+      ...appStyles.appFlexColumnContainer
+    };
+
     return (
-      <View>
+      <View style={mergedStyles}>
         <Text style={styles.timer}>{getDisplayValue(this.props.stopwatchState.stopwatchTime)}</Text>
         <AppTextInput
           key='titleInput'
